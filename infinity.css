@@ -1,0 +1,135 @@
+/* body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #222;
+    margin-top: -10px;
+} */
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #222;
+    padding: 0;
+    font-family: sans-serif;
+    margin-top: -26px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;      /* 垂直排列 search 和 body */
+    justify-content: center;     /* 垂直居中整个容器 */
+    align-items: center;         /* 水平居中子元素 */
+    height: 100%;
+}
+
+input { 
+    outline: none;            /* 去除默认的蓝色聚焦轮廓 */
+    box-shadow: none;         /* 去除默认的阴影 */
+    border: solid #555 1px;
+    width: 300px; 
+    padding: 8px; 
+    font-size: 16px; 
+    border-radius: 10px; background-color: #0000;
+    color: #ddd;
+}
+
+.button-container { 
+    margin-top: 5px; 
+}
+
+.search-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    /* margin-right: 5px; */
+    margin: 0;
+    height: 40px;
+}
+.search-button img {
+    width: 32px;
+    height: 32px;
+    margin: 0;
+}
+
+.search {
+    display: flex;
+    opacity: 0;
+    align-items: center; /* 垂直居中 */
+    transition: opacity 0.1s ease;
+    gap: 10px; /* 输入框和按钮之间的间距 */
+}
+
+.search-wrapper {
+  width: 500px; 
+  height: 80px; /* 给个高度方便悬浮 */
+  /* background-color: #333; */
+}
+
+.search-wrapper:hover .search {
+  opacity: 1;
+}
+
+.body {
+    display: grid;
+    /* margin: auto; */
+    grid-template-columns: repeat(8, 12.5%);
+    width: 70%;
+}
+img {
+    width: 70px;
+    border-radius: 100px;
+    margin: 25px;
+    border: solid #555 1px;
+    filter: invert(88%) hue-rotate(180deg);
+}
+a{
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (prefers-color-scheme: light) {
+    html, body{
+        background-color: #fff;
+        color: #ddd;
+    }
+    img {
+        border: solid #ddd 1px;
+        filter: none;
+    }
+    input {
+        color: #333;
+        border: solid #ddd 1px;
+    }
+}
+
+@media (max-width: 1500px) {
+    .body {
+        width: 85%;
+    }
+    }
+
+@media (max-width: 1200px) {
+.body {
+    width: 90%;
+}
+}
+
+@media (max-width: 900px) {
+    .body {
+        width: 100%;
+    }
+}
+
+@media (max-width: 800px) {
+    body {
+        margin-top: 0px;
+    }
+    .body {
+        grid-template-columns: repeat(5, 20%);
+        width: 100%;
+    }
+}
+  
