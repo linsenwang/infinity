@@ -57,13 +57,12 @@ input {
     opacity: 0;
     align-items: center; /* 垂直居中 */
     transition: opacity 0.1s ease;
-    gap: 10px; /* 输入框和按钮之间的间距 */
+    gap: 12px; /* 输入框和按钮之间的间距 */
 }
 
 .search-wrapper {
-  width: 550px; 
-  height: 80px; /* 给个高度方便悬浮 */
-  /* background-color: #333; */
+  height: 40px;
+  padding: 30px;
 }
 
 .search-wrapper:hover .search {

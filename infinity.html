@@ -12,46 +12,58 @@
 </head>
 <body>
 <div class="container">
-    <div class="search-wrapper" id="searchWrapper">
-    <div class="search">
-        <input type="text" id="searchInput" autocomplete="off" id="searchInput">
-
-        <div class="button-container">
-            <button class="search-button" onclick="search('bilibili')">
-            <img src="web_icon/b-favicon-l.png" alt="Bilibili">
-            </button>
-            <button class="search-button" onclick="search('douban')">
-            <img src="web_icon/icon-1h9qu2pjo4erf7nyvrdhiut0t3p.png" alt="Douban">
-            </button>
-            <button class="search-button" onclick="search('jd')">
-            <img src="web_icon/jd.jpg" alt="JD">
-            </button>
-            <button class="search-button" onclick="search('zhihu')">
-            <img src="web_icon/icon-1hht7hv1igpf4w4lfyqc3cuvkyn.png" alt="Zhihu">
-            </button>
-        </div>
+<div class="search-wrapper" id="searchWrapper">
+<div class="search">
+    <input type="text" id="searchInput" autocomplete="off">
+    <div class="button-container">
+        <button class="search-button" onclick="search('bilibili')">
+        <img src="web_icon/b-favicon-l.png" alt="Bilibili">
+        </button>
+        <button class="search-button" onclick="search('douban')">
+        <img src="web_icon/icon-1h9qu2pjo4erf7nyvrdhiut0t3p.png" alt="Douban">
+        </button>
+        <button class="search-button" onclick="search('youtube')">
+        <img src="web_icon/youtube.png" alt="Youtube">
+        </button>
+        <button class="search-button" onclick="search('jd')">
+        <img src="web_icon/jd.jpg" alt="JD">
+        </button>
+        <button class="search-button" onclick="search('zhihu')">
+        <img src="web_icon/icon-1hht7hv1igpf4w4lfyqc3cuvkyn.png" alt="Zhihu">
+        </button>
     </div>
-    </div>
+</div>
+</div>
+<script>
+    const baseUrls = {
+    google: "https://www.google.com/search?q=",
+    bing: "https://www.bing.com/search?q=",
+    baidu: "https://www.baidu.com/s?wd=",
+    zhihu: "https://www.zhihu.com/search?type=content&q=",
+    bilibili: "https://search.bilibili.com/all?keyword=",
+    douban: "https://www.douban.com/search?source=suggest&q=",
+    jd: "https://search.jd.com/Search?keyword=",
+    youtube: "https://www.youtube.com/results?search_query=",
+    };
 
-    <script>
-        const baseUrls = {
-        google: "https://www.google.com/search?q=",
-        bing: "https://www.bing.com/search?q=",
-        baidu: "https://www.baidu.com/s?wd=",
-        zhihu: "https://www.zhihu.com/search?type=content&q=",
-        bilibili: "https://search.bilibili.com/all?keyword=",
-        douban: "https://www.douban.com/search?source=suggest&q=",
-        jd: "https://search.jd.com/Search?keyword=",
-        };
+    function search(engine) {
+    const input = document.getElementById("searchInput").value.trim();
+    if (input === "") return;
+    const query = encodeURIComponent(input);  // 格式化
+    const url = baseUrls[engine] + query;
+    window.location.href = url;  // 当前 tab 跳转
+    }
 
-        function search(engine) {
-        const input = document.getElementById("searchInput").value.trim();
-        if (input === "") return;
-        const query = encodeURIComponent(input);  // 格式化
-        const url = baseUrls[engine] + query;
-        window.location.href = url;  // 当前 tab 跳转
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); 
+            search('bilibili');
         }
-    </script>
+    });
+
+    // --- 新增代码结束 ---
+</script>
     
     <div class="body">
         <a href="https://webvpn.xmu.edu.cn/"><img style="background-color: rgba(4,71,146,1);"src="web_icon/icon-1hd7omdhk7jtseuf59tf7wsyg42.png">
