@@ -30,6 +30,9 @@ function startKeyDetection() {
         'cs': 'https://csdiy.wiki/',
         '22': 'https://www.youtube.com/playlist?list=PLoROMvodv4rOaMFbaqxPDoLWjDaRAdP9D',
         'tr': 'https://translate.google.com/',
+        'kp': 'https://www.youtube.com/@AndrejKarpathy',
+        'ka': 'https://x.com/karminski3',
+        'jd': 'https://www.jd.com/',
     };
     let timeout; // 用于存储定时器的引用
 
