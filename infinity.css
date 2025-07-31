@@ -51,6 +51,10 @@ input {
     height: 32px;
     margin: 0;
 }
+.search-button:hover img {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px #ddd;
+}
 
 .search {
     display: flex;
@@ -81,10 +85,7 @@ img {
     margin: 25px;
     border: solid #555 1px;
     filter: invert(88%) hue-rotate(180deg);
-    transition: transform 0.2s ease;
-}
-img:hover {
-  transform: scale(1.1);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 a{
@@ -92,6 +93,12 @@ a{
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+a:hover img {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px #ddd;
 }
 
 @media (prefers-color-scheme: light) {

@@ -16,9 +16,6 @@
 <div class="search">
     <input type="text" id="searchInput" autocomplete="off">
     <div class="button-container">
-        <button class="search-button" onclick="search('bilibili')">
-        <img src="web_icon/b-favicon-l.png" alt="Bilibili">
-        </button>
         <button class="search-button" onclick="search('douban')">
         <img src="web_icon/icon-1h9qu2pjo4erf7nyvrdhiut0t3p.png" alt="Douban">
         </button>
@@ -28,8 +25,17 @@
         <button class="search-button" onclick="search('jd')">
         <img src="web_icon/jd.jpg" alt="JD">
         </button>
+        <button class="search-button" onclick="search('goodreads')">
+        <img src="web_icon/goodreads.jpg" alt="Goodreads">
+        </button>
+        <button class="search-button" onclick="search('zlib')">
+        <img src="web_icon/icon-1hmp4ecnvaeh5sqtmolvvtyq33r.png" alt="Zlib">
+        </button>
         <button class="search-button" onclick="search('zhihu')">
         <img src="web_icon/icon-1hht7hv1igpf4w4lfyqc3cuvkyn.png" alt="Zhihu">
+        </button>
+        <button class="search-button" onclick="search('bilibili')">
+        <img src="web_icon/b-favicon-l.png" alt="Bilibili">
         </button>
     </div>
 </div>
@@ -44,6 +50,8 @@
     douban: "https://www.douban.com/search?source=suggest&q=",
     jd: "https://search.jd.com/Search?keyword=",
     youtube: "https://www.youtube.com/results?search_query=",
+    goodreads: "https://www.goodreads.com/search?q=",
+    zlib: "https://z-lib.fm/s/"
     };
 
     function search(engine) {
@@ -83,7 +91,7 @@
         <a href="https://www.ncpssd.org/"><img style="background-color: rgba(251,248,248,1);"src="web_icon/icon-1h9mr17hh5z9htrlydh42gtp432.png">
         <a href="https://www.bing.com/search?q=Bing+AI&showconv=1"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hfc91vprm2u62sz1krf5h0y1wy.png">
         <a href="https://l.xmu.edu.cn/my/courses.php"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hdd1k6t4jpjvalpsyr1lhsq4wb.png">
-        <a href="https://www.google.com.hk/"><img src="web_icon/icon-1haj6tmv01ebx90kua8dujub66m.png">
+        <a href="http://localhost:3000/"><img src="web_icon/txtr.jpg">
         <a href="https://www.icourse163.org/spoc/course/XMU-1462626165?tid=1471131452"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hdg3u5t5s94rgfhcbk8jqaynss.png">
         <a href="https://www.runoob.com/mysql/mysql-administration.html"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hdd1rr7iim229x7hklilflyvxf.png">
         <a href="https://shimo.im/recent"><img src="web_icon/icon-1hg71u1fr4akszd6kxkgpqagyfr.png">

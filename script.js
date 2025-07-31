@@ -24,6 +24,7 @@ function startKeyDetection() {
         'tx': 'http://localhost:3000/',
         'ge': 'https://aistudio.google.com/prompts/new_chat',
         'li': 'https://space.bilibili.com/1567748478/lists/32744?type=season',
+        'lm': 'https://space.bilibili.com/1567748478',
         'gm': 'https://mail.google.com/mail/u/0/#inbox',
         'wj': 'https://www.youtube.com/results?search_query=%E7%8E%8B%E5%B1%80',
         '12': 'http://127.0.0.1:8096/',
