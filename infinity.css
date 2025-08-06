@@ -16,6 +16,10 @@ html, body {
     margin-top: -26px;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
 .container {
     display: flex;
     flex-direction: column;      /* 垂直排列 search 和 body */

@@ -22,21 +22,16 @@
     opacity: 0;
     visibility: hidden;
     position: absolute;
-    /* background-color: #0004; */
     backdrop-filter: blur(8px);
     min-width: 100px;
     z-index: 1;
     border-radius: 1rem;
-    /* padding: 5px 0; */
     top: 100%;
     transition: opacity 0.3s ease;
 }
 
 .dropdown-content a {
-    color: inherit;
     padding: 8px;
-    /* margin: 0 12px; */
-    text-decoration: none;
     display: block;
     text-align: center;
 }
@@ -135,7 +130,7 @@
         <a href="https://l.xmu.edu.cn/my/courses.php"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hdd1k6t4jpjvalpsyr1lhsq4wb.png">
         <a href="http://localhost:3000/"><img src="web_icon/txtr.jpg">
         <!-- <a href="https://www.icourse163.org/spoc/course/XMU-1462626165?tid=1471131452"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hdg3u5t5s94rgfhcbk8jqaynss.png"> -->
-        <a><div class="dropdown" id="x-dropdown">
+        <a href="https://x.com/karminski3"><div class="dropdown" id="x-dropdown">
             <img style="background-color: rgba(255,255,255,1);" src="web_icon/x.png">
             <div class="dropdown-content"></div>
         </div></a>
@@ -161,7 +156,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const dropdowns = {
         'x-dropdown': [
-            { name: 'karminski', url: 'https://x.com/karminski3' },
+            // { name: 'karminski', url: 'https://x.com/karminski3' },
             { name: 'dotey', url: 'https://x.com/dotey' },
         ]
         // 您可以在此添加更多下拉菜单的配置
@@ -181,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const link = document.createElement('a');
                 link.href = item.url;
                 link.textContent = item.name;
-                link.target = "_self";
+                // link.target = "_self";
                 content.appendChild(link);
             });
 
