@@ -8,6 +8,45 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
     <style>
 
+.dropdown {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #0000;
+    z-index: 100;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    /* background-color: #0004; */
+    backdrop-filter: blur(8px);
+    min-width: 100px;
+    z-index: 1;
+    border-radius: 1rem;
+    /* padding: 5px 0; */
+    top: 100%;
+}
+
+.dropdown-content a {
+    color: inherit;
+    padding: 8px;
+    /* margin: 0 12px; */
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.dropdown-content a:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+.dropdown-content.show {
+    display: block;
+}
     </style>
 </head>
 <body>
@@ -93,7 +132,10 @@
         <a href="https://l.xmu.edu.cn/my/courses.php"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hdd1k6t4jpjvalpsyr1lhsq4wb.png">
         <a href="http://localhost:3000/"><img src="web_icon/txtr.jpg">
         <!-- <a href="https://www.icourse163.org/spoc/course/XMU-1462626165?tid=1471131452"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hdg3u5t5s94rgfhcbk8jqaynss.png"> -->
-        <a href="https://x.com/karminski3"><img style="background-color: rgba(255,255,255,1);"src="web_icon/x.png">
+        <a><div class="dropdown" id="x-dropdown">
+            <img style="background-color: rgba(255,255,255,1);" src="web_icon/x.png">
+            <div class="dropdown-content"></div>
+        </div></a>
         <!-- <a href="https://www.runoob.com/mysql/mysql-administration.html"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hdd1rr7iim229x7hklilflyvxf.png"> -->
         <a href="https://openrouter.ai/models"><img style="background-color: rgba(255,255,255,1);"src="web_icon/openrouter.png">
         <a href="https://shimo.im/recent"><img src="web_icon/icon-1hg71u1fr4akszd6kxkgpqagyfr.png">
@@ -112,4 +154,62 @@
         <a href="https://mui.com/material-ui/getting-started/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/mui.png">
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdowns = {
+        'x-dropdown': [
+            { name: 'karminski', url: 'https://x.com/karminski3' },
+            { name: 'dotey', url: 'https://x.com/dotey' },
+        ]
+        // 您可以在此添加更多下拉菜单的配置
+        // 例如:
+        // 'another-icon-id': [
+        //   { name: 'Link 1', url: '...' },
+        //   { name: 'Link 2', url: '...' }
+        // ]
+    };
+
+    for (const id in dropdowns) {
+        const dropdownElement = document.getElementById(id);
+        if (dropdownElement) {
+            const content = dropdownElement.querySelector('.dropdown-content');
+            const items = dropdowns[id];
+            items.forEach(item => {
+                const link = document.createElement('a');
+                link.href = item.url;
+                link.textContent = item.name;
+                link.target = "_self";
+                content.appendChild(link);
+            });
+
+            dropdownElement.addEventListener('click', function(event) {
+                event.stopPropagation();
+                const isAlreadyOpen = content.classList.contains('show');
+                closeAllDropdowns();
+                if (!isAlreadyOpen) {
+                    content.classList.add('show');
+                }
+            });
+        }
+    }
+
+    function closeAllDropdowns() {
+        for (const id in dropdowns) {
+            const dropdownElement = document.getElementById(id);
+            if (dropdownElement) {
+                const content = dropdownElement.querySelector('.dropdown-content');
+                if (content.classList.contains('show')) {
+                    content.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    window.addEventListener('click', function(event) {
+        if (!event.target.closest('.dropdown')) {
+            closeAllDropdowns();
+        }
+    });
+});
+</script>
 </body>
