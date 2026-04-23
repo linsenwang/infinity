@@ -105,7 +105,7 @@
 
     const searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" && !event.isComposing) {
             event.preventDefault(); 
             search('bilibili');
         }
@@ -117,8 +117,9 @@
     <div class="body">
         <a href="https://webvpn.xmu.edu.cn/"><img style="background-color: rgba(4,71,146,1);"src="web_icon/icon-1hd7omdhk7jtseuf59tf7wsyg42.png">
         <a href="https://filehelper.weixin.qq.com/"><img src="web_icon/icon-1hpfelfrcnyroixwxq48hgnub1r.png">
-        <a href="https://www.zhihu.com/people/kvxjr369f"><img src="web_icon/icon-1hht7hv1igpf4w4lfyqc3cuvkyn.png">
+        <!-- <a href="https://www.zhihu.com/people/kvxjr369f"><img src="web_icon/icon-1hht7hv1igpf4w4lfyqc3cuvkyn.png"> -->
         <a href="https://www.douban.com/"><img src="web_icon/icon-1h9qu2pjo4erf7nyvrdhiut0t3p.png">
+        <a href="https://app.folo.is/timeline/articles/all/pending"><img src="web_icon/folo.png">
         <a href="https://music.163.com/#/playlist?id=6671511948"><img src="web_icon/icon-1hdjfs10fclmaw06m708tlg1x74.png">
         <a href="https://github.com/"><img src="web_icon/icon-1hl5qad3kczi5brf8uvi0hc4ksz.png">
         <a href="http://www.cninfo.com.cn/new/index"><img src="web_icon/icon-1hlc4f9jvw4o6hygspujmccxxp6.png">
@@ -147,7 +148,8 @@
         <a href="https://rail.eecs.berkeley.edu/deeprlcourse/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/CS285.png">
         <a href="https://www.imf.org/en/Data"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hnfh7j3t9qgpnmow26fgghthj2.png">
         <a href="https://www.kaggle.com/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hnmr0epf6gngm47fnqm9c8yon2.png">
-        <a href="https://www.geogebra.org/calculator"><img style="background-color: rgba(255,255,255,1);"src="web_icon/Geogebra.jpg">
+        <!-- <a href="https://www.geogebra.org/calculator"><img style="background-color: rgba(255,255,255,1);"src="web_icon/Geogebra.jpg"> -->
+        <a href="https://www.caiyunapp.com/h5/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/cyweather.jpg">
         <a href="https://translate.google.com/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/trans.jpg">
         <a href="https://chatgpt.com/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/openai.png">
         <a href="https://fonts.google.com/icons"><img style="background-color: rgba(255,255,255,1);"src="web_icon/gfont.jpg">

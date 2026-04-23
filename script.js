@@ -34,6 +34,9 @@ function startKeyDetection() {
         'kp': 'https://www.youtube.com/@AndrejKarpathy',
         'ka': 'https://x.com/karminski3',
         'jd': 'https://www.jd.com/',
+        'sc': 'https://www.youtube.com/@scottmanley',
+        'co': 'https://t.coros.com/',
+        'it': 'https://www.ithome.com/blog/',
     };
     let timeout; // 用于存储定时器的引用
 
