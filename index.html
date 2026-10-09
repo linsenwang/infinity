@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <link rel="icon" type="image/x-icon" href="web_icon/yanan.png" />
+    <link rel="icon" type="image/png" href="web_icon/yanan.png" />
     <title>New Tab</title>
+    <!-- defer 保证按顺序执行：config -> search -> script -->
+    <script src="js/config.js" defer></script>
+    <script src="js/search.js" defer></script>
     <script src="script.js" defer></script>
-    <link rel="stylesheet" href="infinity.css"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"><link rel="stylesheet" href="infinity.css">
+    <link rel="stylesheet" href="infinity.css">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
     <style>
 
@@ -52,110 +55,57 @@
 <div class="search-wrapper" id="searchWrapper">
 <div class="search">
     <input type="text" id="searchInput" autocomplete="off">
-    <div class="button-container">
-        <button class="search-button" onclick="search('douban')">
-        <img src="web_icon/icon-1h9qu2pjo4erf7nyvrdhiut0t3p.png" alt="Douban">
-        </button>
-        <button class="search-button" onclick="search('youtube')">
-        <img src="web_icon/youtube.png" alt="Youtube">
-        </button>
-        <button class="search-button" onclick="search('goodreads')">
-        <img src="web_icon/goodreads.jpg" alt="Goodreads">
-        </button>
-        <button class="search-button" onclick="search('zlib')">
-        <img src="web_icon/icon-1hmp4ecnvaeh5sqtmolvvtyq33r.png" alt="Zlib">
-        </button>
-        <button class="search-button" onclick="search('jd')">
-        <img src="web_icon/jd.jpg" alt="JD">
-        </button>
-        <button class="search-button" onclick="search('zhihu')">
-        <img src="web_icon/icon-1hht7hv1igpf4w4lfyqc3cuvkyn.png" alt="Zhihu">
-        </button>
-        <button class="search-button" onclick="search('taobao')">
-        <img src="web_icon/taobao.png" alt="Taobao">
-        </button>
-        <button class="search-button" onclick="search('bilibili')">
-        <img src="web_icon/b-favicon-l.png" alt="Bilibili">
-        </button>
-    </div>
+    <!-- 搜索按钮由 js/search.js 依据 js/config.js 的配置渲染 -->
+    <div class="button-container" id="buttonContainer"></div>
 </div>
 </div>
-<script>
-    const baseUrls = {
-    google: "https://www.google.com/search?q=",
-    bing: "https://www.bing.com/search?q=",
-    baidu: "https://www.baidu.com/s?wd=",
-    zhihu: "https://www.zhihu.com/search?type=content&q=",
-    bilibili: "https://search.bilibili.com/all?keyword=",
-    douban: "https://www.douban.com/search?source=suggest&q=",
-    jd: "https://search.jd.com/Search?keyword=",
-    youtube: "https://www.youtube.com/results?search_query=",
-    goodreads: "https://www.goodreads.com/search?q=",
-    zlib: "https://z-lib.fm/s/",
-    taobao: "https://s.taobao.com/search?q=",
-    };
 
-    function search(engine) {
-    const input = document.getElementById("searchInput").value.trim();
-    if (input === "") return;
-    const query = encodeURIComponent(input);  // 格式化
-    const url = baseUrls[engine] + query;
-    window.location.href = url;  // 当前 tab 跳转
-    }
-
-    const searchInput = document.getElementById("searchInput");
-    searchInput.addEventListener("keydown", function(event) {
-        if (event.key === "Enter" && !event.isComposing) {
-            event.preventDefault(); 
-            search('bilibili');
-        }
-    });
-
-    // --- 新增代码结束 ---
-</script>
-    
     <div class="body">
-        <a href="https://webvpn.xmu.edu.cn/"><img style="background-color: rgba(4,71,146,1);"src="web_icon/icon-1hd7omdhk7jtseuf59tf7wsyg42.png">
-        <a href="https://filehelper.weixin.qq.com/"><img src="web_icon/icon-1hpfelfrcnyroixwxq48hgnub1r.png">
-        <!-- <a href="https://www.zhihu.com/people/kvxjr369f"><img src="web_icon/icon-1hht7hv1igpf4w4lfyqc3cuvkyn.png"> -->
-        <a href="https://www.douban.com/"><img src="web_icon/icon-1h9qu2pjo4erf7nyvrdhiut0t3p.png">
-        <a href="https://app.folo.is/timeline/articles/all/pending"><img src="web_icon/folo.png">
-        <a href="https://music.163.com/#/playlist?id=6671511948"><img src="web_icon/icon-1hdjfs10fclmaw06m708tlg1x74.png">
-        <a href="https://github.com/"><img src="web_icon/icon-1hl5qad3kczi5brf8uvi0hc4ksz.png">
-        <a href="http://www.cninfo.com.cn/new/index"><img src="web_icon/icon-1hlc4f9jvw4o6hygspujmccxxp6.png">
-        <a href="https://web.mit.edu/6.031/www/sp22/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/6031.jpg">
-        <a href="https://javascript.info/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hh209s0uy51j5sylir3t6kfyzu.png">
-        <a href="https://library.xmu.edu.cn/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hdg3tmcf1kcd5z5m7zspweafpf.png">
-        <a href="https://z-library.sk"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hmp4ecnvaeh5sqtmolvvtyq33r.png">
-        <a href="https://aistudio.google.com/prompts/new_chat"><img style="background-color: rgba(255,255,255,1);"src="web_icon/gas.png">
-        <!-- <a href="https://pintia.cn/problem-sets/dashboard"><img src="web_icon/icon-1ha66gvkf36cps3tb240nhiyf34.png"> -->
-        <a href="https://scholar.google.com/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/gsh.jpg">
-        <a href="https://www.ncpssd.org/"><img style="background-color: rgba(251,248,248,1);"src="web_icon/icon-1h9mr17hh5z9htrlydh42gtp432.png">
-        <a href="https://www.bing.com/search?q=Bing+AI&showconv=1"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hfc91vprm2u62sz1krf5h0y1wy.png">
-        <a href="https://l.xmu.edu.cn/my/courses.php"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hdd1k6t4jpjvalpsyr1lhsq4wb.png">
-        <a href="http://localhost:3000/"><img src="web_icon/txtr.jpg">
-        <!-- <a href="https://www.icourse163.org/spoc/course/XMU-1462626165?tid=1471131452"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hdg3u5t5s94rgfhcbk8jqaynss.png"> -->
+        <a href="https://webvpn.xmu.edu.cn/"><img style="background-color: rgba(4,71,146,1);"width="70" height="70" src="web_icon/icon-1hd7omdhk7jtseuf59tf7wsyg42.webp">
+        <a href="https://filehelper.weixin.qq.com/"><img width="70" height="70" src="web_icon/icon-1hpfelfrcnyroixwxq48hgnub1r.webp">
+        <a href="https://www.douban.com/"><img width="70" height="70" src="web_icon/icon-1h9qu2pjo4erf7nyvrdhiut0t3p.webp">
+        <a><img>
+        <!--<a href="https://www.zhihu.com/people/kvxjr369f"><img width="70" height="70" src="web_icon/icon-1hht7hv1igpf4w4lfyqc3cuvkyn.webp">-->
+        <a href="https://app.folo.is/timeline/articles/all/pending"><img width="70" height="70" src="web_icon/folo.webp">
+        <!-- <a href="https://music.163.com/#/playlist?id=6671511948"><img width="70" height="70" src="web_icon/icon-1hdjfs10fclmaw06m708tlg1x74.webp"> -->
+        <a href="https://github.com/"><img width="70" height="70" src="web_icon/icon-1hl5qad3kczi5brf8uvi0hc4ksz.webp">
+        <a href="http://www.cninfo.com.cn/new/index"><img width="70" height="70" src="web_icon/icon-1hlc4f9jvw4o6hygspujmccxxp6.webp">
+        <a href="https://web.mit.edu/6.031/www/sp22/"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/6031.webp">
+        <a href="https://javascript.info/"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/icon-1hh209s0uy51j5sylir3t6kfyzu.webp">
+        <a href="https://library.xmu.edu.cn/"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/icon-1hdg3tmcf1kcd5z5m7zspweafpf.webp">
+        <a href="https://z-library.sk"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/icon-1hmp4ecnvaeh5sqtmolvvtyq33r.webp">
+        <a href="https://aistudio.google.com/prompts/new_chat"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/gas.webp">
+        <!-- <a href="https://pintia.cn/problem-sets/dashboard"><img width="70" height="70" src="web_icon/icon-1ha66gvkf36cps3tb240nhiyf34.webp"> -->
+        <a href="https://scholar.google.com/"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/gsh.webp">
+        <a href="https://www.ncpssd.org/"><img style="background-color: rgba(251,248,248,1);"width="70" height="70" src="web_icon/icon-1h9mr17hh5z9htrlydh42gtp432.webp">
+        <a><img>
+        <!--<a href="https://www.bing.com/search?q=Bing+AI&showconv=1"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/icon-1hfc91vprm2u62sz1krf5h0y1wy.webp">-->
+        <a href="https://l.xmu.edu.cn/my/courses.php"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/icon-1hdd1k6t4jpjvalpsyr1lhsq4wb.webp">
+        <a href="http://localhost:3000/"><img width="70" height="70" src="web_icon/txtr.webp">
+        <!-- <a href="https://www.icourse163.org/spoc/course/XMU-1462626165?tid=1471131452"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/icon-1hdg3u5t5s94rgfhcbk8jqaynss.webp"> -->
         <a href="https://x.com/karminski3"><div class="dropdown" id="x-dropdown">
-            <img style="background-color: rgba(255,255,255,1);" src="web_icon/x.png">
+            <img style="background-color: rgba(255,255,255,1);" width="70" height="70" src="web_icon/x.webp">
             <div class="dropdown-content"></div>
         </div></a>
-        <!-- <a href="https://www.runoob.com/mysql/mysql-administration.html"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hdd1rr7iim229x7hklilflyvxf.png"> -->
-        <a href="https://openrouter.ai/models"><img style="background-color: rgba(255,255,255,1);"src="web_icon/openrouter.png">
-        <a href="https://shimo.im/recent"><img src="web_icon/icon-1hg71u1fr4akszd6kxkgpqagyfr.png">
-        <a href="https://annas-archive.org/search"><img style="background-color: rgba(241,241,241,1);"src="web_icon/icon-1h9l2pa65scf4d92g1xzs0x7t8i.png">
-        <a href="https://insights.ceicdata.com.cn/%E6%95%B0%E6%8D%AE%E6%A8%A1%E6%9D%BF%E5%91%BD%E5%90%8D/myseries"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hgabp1ota45767tg52ce68ei6h.png">
-        <!-- <a href="https://q712f64134.vicp.fun/tree?"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hnhj6sfa2xk21qcbq02zl246jv.png"> -->
-        <a href="https://rail.eecs.berkeley.edu/deeprlcourse/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/CS285.png">
-        <a href="https://www.imf.org/en/Data"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hnfh7j3t9qgpnmow26fgghthj2.png">
-        <a href="https://www.kaggle.com/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/icon-1hnmr0epf6gngm47fnqm9c8yon2.png">
-        <!-- <a href="https://www.geogebra.org/calculator"><img style="background-color: rgba(255,255,255,1);"src="web_icon/Geogebra.jpg"> -->
-        <a href="https://www.caiyunapp.com/h5/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/cyweather.jpg">
-        <a href="https://translate.google.com/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/trans.jpg">
-        <a href="https://chatgpt.com/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/openai.png">
-        <a href="https://fonts.google.com/icons"><img style="background-color: rgba(255,255,255,1);"src="web_icon/gfont.jpg">
-        <a href="https://zh-google-styleguide.readthedocs.io/en/latest/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/gos.jpg">
-        <a href="https://ocw.mit.edu/search/?d=Economics"><img style="background-color: rgba(255,255,255,1);"src="web_icon/mit.jpg">
-        <a href="https://mui.com/material-ui/getting-started/"><img style="background-color: rgba(255,255,255,1);"src="web_icon/mui.png">
+        <!-- <a href="https://www.runoob.com/mysql/mysql-administration.html"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/icon-1hdd1rr7iim229x7hklilflyvxf.webp"> -->
+        <a href="https://openrouter.ai/models"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/openrouter.webp">
+        <a href="https://shimo.im/recent"><img width="70" height="70" src="web_icon/icon-1hg71u1fr4akszd6kxkgpqagyfr.webp">
+        <a href="https://annas-archive.org/search"><img style="background-color: rgba(241,241,241,1);"width="70" height="70" src="web_icon/icon-1h9l2pa65scf4d92g1xzs0x7t8i.webp">
+        <a href="https://insights.ceicdata.com.cn/%E6%95%B0%E6%8D%AE%E6%A8%A1%E6%9D%BF%E5%91%BD%E5%90%8D/myseries"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/icon-1hgabp1ota45767tg52ce68ei6h.webp">
+        <!-- <a href="https://q712f64134.vicp.fun/tree?"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/icon-1hnhj6sfa2xk21qcbq02zl246jv.webp"> -->
+        <a href="https://rail.eecs.berkeley.edu/deeprlcourse/"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/CS285.webp">
+        <a href="https://www.imf.org/en/Data"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/icon-1hnfh7j3t9qgpnmow26fgghthj2.webp">
+        <a href="https://www.kaggle.com/"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/icon-1hnmr0epf6gngm47fnqm9c8yon2.webp">
+        <!-- <a href="https://www.geogebra.org/calculator"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/Geogebra.webp"> -->
+        <a href="https://www.caiyunapp.com/h5/"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/cyweather.webp">
+        <a href="https://translate.google.com/"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/trans.webp">
+        <a href="https://chatgpt.com/"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/openai.webp">
+        <a href="https://fonts.google.com/icons"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/gfont.webp">
+        <!-- <a href="https://zh-google-styleguide.readthedocs.io/en/latest/"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/gos.webp"> -->
+        <a href="https://www.zaobao.com/news/china"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/zaobao.webp">
+        <!-- <a href="https://ocw.mit.edu/search/?d=Economics"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/mit.webp"> -->
+        <a href="http://127.0.0.1:8096/"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/openwebui.webp">
+        <a href="https://mui.com/material-ui/getting-started/"><img style="background-color: rgba(255,255,255,1);"width="70" height="70" src="web_icon/mui.webp">
     </div>
 </div>
 <script>

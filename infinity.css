@@ -19,6 +19,10 @@ html, body {
 a {
     color: inherit;
     text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 .container {
     display: flex;
@@ -28,19 +32,19 @@ a {
     height: 100%;
 }
 
-input { 
+input {
     outline: none;            /* 去除默认的蓝色聚焦轮廓 */
     box-shadow: none;         /* 去除默认的阴影 */
     border: solid #555 1px;
-    width: 300px; 
-    padding: 8px; 
-    font-size: 16px; 
+    width: 300px;
+    padding: 8px;
+    font-size: 16px;
     border-radius: 10px; background-color: #0000;
     color: #ddd;
 }
 
-.button-container { 
-    margin-top: 5px; 
+.button-container {
+    margin-top: 5px;
 }
 
 .search-button {
@@ -86,18 +90,11 @@ input {
 }
 img {
     width: 70px;
+    /*height: 70px;*/
     border-radius: 100px;
     margin: 25px;
     border: solid #555 1px;
     filter: invert(88%) hue-rotate(180deg);
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-}
-
-a{
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
@@ -149,4 +146,65 @@ a:hover img {
         width: 100%;
     }
 }
-  
+
+@media (max-width: 600px) {
+    html, body {
+        margin-top: 0;
+    }
+    .container {
+        height: auto;
+        min-height: 100%;
+        justify-content: flex-start;
+        padding: 20px 0;
+    }
+    .search-wrapper {
+        height: auto;
+        padding: 15px 10px;
+    }
+    .search-wrapper .search {
+        opacity: 1;
+        flex-direction: column;
+        gap: 10px;
+    }
+    input {
+        width: 80vw;
+        max-width: 300px;
+    }
+    .button-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+    }
+    .search-button {
+        padding: 0;
+        height: 36px;
+    }
+    .search-button img {
+        width: 28px;
+        height: 28px;
+    }
+    .body {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        width: 100%;
+    }
+    img {
+        width: 55px;
+        height: 55px;
+        margin: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .body {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    img {
+        width: 48px;
+        height: 48px;
+        margin: 10px;
+    }
+    input {
+        width: 85vw;
+    }
+}

@@ -11,7 +11,7 @@ function startKeyDetection() {
         'an': 'https://annas-archive.org/',
         'mp': 'https://mp.weixin.qq.com/',
         'gi': 'https://github.com/',
-        'zh': 'https://www.zhihu.com/people/kvxjr369f',
+        // 'zh': 'https://www.zhihu.com/people/kvxjr369f',
         // 'if': 'https://www.iflyrec.com/html/addMachineOrder.html',
         // 'il': 'https://huiji.iflyrec.com/list',
         'rt': 'file:///Users/yangqian/Library/CloudStorage/OneDrive-Personal/033_webD/infinity_project/txtReader.html',
@@ -35,8 +35,12 @@ function startKeyDetection() {
         'ka': 'https://x.com/karminski3',
         'jd': 'https://www.jd.com/',
         'sc': 'https://www.youtube.com/@scottmanley',
+        'ys': 'https://www.youtube.com/feed/subscriptions',
         'co': 'https://t.coros.com/',
         'it': 'https://www.ithome.com/blog/',
+        '47': 'http://47.120.35.57:3000/',
+        'ta': 'https://console.tailscale.com/admin/users',
+        'iv': 'file:///Users/yangqian/Downloads/image-viewer/image-viewer.html',
     };
     let timeout; // 用于存储定时器的引用
 
@@ -48,9 +52,14 @@ function startKeyDetection() {
             return;
         }
 
+        // 2. 修饰键组合（⌘/⌃/⌥）不参与字母序列匹配
+        if (event.metaKey || event.ctrlKey || event.altKey) {
+            return;
+        }
+
         // --- 如果代码执行到这里，说明是有效的快捷键输入 ---
 
-        // 2. 重置超时定时器
+        // 3. 重置超时定时器
         // 只有在有效的按键上才重置定时器
         clearTimeout(timeout);
         timeout = setTimeout(() => {
@@ -63,7 +72,7 @@ function startKeyDetection() {
         // 防止连续输入同一个键，例如 'gg'。如果需要支持'gg'这样的组合，请注释掉此行
         // if (pressedKeys.length > 0 && pressedKeys[pressedKeys.length - 1] === key) return;
 
-        // 3. 添加按键到数组并处理
+        // 4. 添加按键到数组并处理
         pressedKeys.push(key);
         console.log(`按下的键序列: ${pressedKeys.join('')}`);
 
@@ -72,7 +81,7 @@ function startKeyDetection() {
             pressedKeys.shift();
         }
 
-        // 4. 检查组合键是否匹配
+        // 5. 检查组合键是否匹配
         const recentKeys = pressedKeys.join('');
         // 从后往前检查，优先匹配更长的快捷键，例如 'go' 和 'goo'
         for (let i = 0; i < recentKeys.length; i++) {
