@@ -38,6 +38,7 @@
             const img = document.createElement('img');
             img.src = engine.icon;
             img.alt = '';
+            img.draggable = false;
             img.width = 32;
             img.height = 32;
 

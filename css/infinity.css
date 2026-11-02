@@ -66,6 +66,13 @@ body {
     transition: background-color 0.35s ease, color 0.35s ease;
 }
 
+/* 图片禁止拖拽与选中（draggable="false" 的 CSS 配套） */
+img {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 /* ---------- 页面骨架 ---------- */
 
 .page {
@@ -174,8 +181,15 @@ body {
         border-color 0.18s var(--ease);
 }
 
-/* 悬停时轻微抬起 */
-.search-button:hover img,
+/* 悬停时轻微抬起（仅支持悬停的设备，避免触屏上阴影驻留） */
+@media (hover: hover) and (pointer: fine) {
+    .search-button:hover img {
+        transform: translateY(-2px) scale(1.02);
+        border-color: transparent;
+        box-shadow: var(--shadow);
+    }
+}
+
 .search-button:focus-visible img {
     transform: translateY(-2px) scale(1.02);
     border-color: transparent;
@@ -219,6 +233,7 @@ body {
     border-radius: 16px;
     color: inherit;
     text-decoration: none;
+    -webkit-user-drag: none;
 }
 
 .site img {
@@ -233,12 +248,23 @@ body {
         border-color 0.18s var(--ease);
 }
 
-.site:hover img,
+/* 悬停抬升只对真正支持悬停的设备生效，避免触屏点击后阴影驻留 */
+@media (hover: hover) and (pointer: fine) {
+    .site:hover img {
+        transform: translateY(-4px) scale(1.04);
+        border-color: transparent;
+        box-shadow: var(--shadow);
+    }
+}
+
+/* 键盘聚焦：鼠标点击不会命中 :focus-visible，松手后阴影不会粘住 */
 .site:focus-visible img,
-.site:focus-within img {
+.site-link:focus-visible img {
     transform: translateY(-4px) scale(1.04);
     border-color: transparent;
     box-shadow: var(--shadow);
+    outline: 2px solid var(--focus-line);
+    outline-offset: 3px;
 }
 
 .site:focus-visible,
@@ -246,15 +272,10 @@ body {
     outline: none;
 }
 
-.site:focus-visible img,
-.site-link:focus-visible img {
-    outline: 2px solid var(--focus-line);
-    outline-offset: 3px;
-}
-
 .site-link {
     display: flex;
     border-radius: 50%;
+    -webkit-user-drag: none;
 }
 
 /* ---------- 深色模式：保留反转滤镜 ---------- */
