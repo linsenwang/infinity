@@ -45,8 +45,7 @@ window.INFINITY_CONFIG = {
         },
         bilibili: {
             name: 'Bilibili',
-            url: 'https://search.bilibili.com/all?keyword=',
-            icon: 'web_icon/b-favicon-l.webp'
+            url: 'https://search.bilibili.com/all?keyword='
         },
         // 以下引擎没有按钮，仅作为搜索引擎备用（也可直接填 defaultEngine）
         google: {
@@ -64,6 +63,7 @@ window.INFINITY_CONFIG = {
     },
 
     // 搜索按钮的显示顺序，元素为 searchEngines 的 key
+    // 默认引擎 bilibili 不出现在按钮里，回车时仍然使用它
     searchButtons: [
         'douban',
         'youtube',
@@ -71,7 +71,6 @@ window.INFINITY_CONFIG = {
         'zlib',
         'jd',
         'zhihu',
-        'taobao',
-        'bilibili'
+        'taobao'
     ]
 };
