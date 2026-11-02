@@ -8,7 +8,7 @@
         'zl': 'https://z-library.sk/',
         'yo': 'https://www.youtube.com/',
         'yh': 'https://www.youtube.com/feed/history',
-        'bi': 'https://t.bilibili.com/',
+        // 'bi': 'https://t.bilibili.com/',
         'an': 'https://annas-archive.org/',
         'mp': 'https://mp.weixin.qq.com/',
         'gi': 'https://github.com/',
