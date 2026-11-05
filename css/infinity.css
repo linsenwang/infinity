@@ -16,6 +16,8 @@
     --accent: #007aff;
     --shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
     --shadow-soft: 0 6px 16px rgba(0, 0, 0, 0.08);
+    /* 图标阴影色，脚本取到颜色时会按图标覆盖 */
+    --icon-glow: rgba(0, 0, 0, 0.14);
 
     --tile: 74px;
     --search-h: 36px;
@@ -37,6 +39,7 @@
         --accent: #4c9aff;
         --shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
         --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.32);
+        --icon-glow: rgba(0, 0, 0, 0.55);
     }
 }
 
@@ -132,8 +135,10 @@ img {
 
 #searchInput {
     width: 100%;
+    max-width: 320px;
+    margin: auto;
     height: var(--search-h);
-    padding: 0 18px 0 42px;
+    padding: 0 18px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     outline: none;
@@ -171,42 +176,13 @@ img {
 }
 
 .search-button img {
-    display: block;
+    --icon-size: var(--search-h);
     width: var(--search-h);
     height: var(--search-h);
-    border: 1px solid var(--tile-ring);
-    border-radius: 50%;
-    background-color: var(--tile-bg);
-    transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease),
-        border-color 0.18s var(--ease);
-}
-
-/* 悬停时轻微抬起（仅支持悬停的设备，避免触屏上阴影驻留） */
-@media (hover: hover) and (pointer: fine) {
-    .search-button:hover img {
-        transform: translateY(-2px) scale(1.02);
-        border-color: transparent;
-        box-shadow: var(--shadow);
-    }
-}
-
-.search-button:focus-visible img {
-    transform: translateY(-2px) scale(1.02);
-    border-color: transparent;
-    box-shadow: var(--shadow);
-}
-
-.search-button:active img {
-    transform: translateY(-1px) scale(0.99);
 }
 
 .search-button:focus-visible {
     outline: none;
-}
-
-.search-button:focus-visible img {
-    outline: 2px solid var(--focus-line);
-    outline-offset: 3px;
 }
 
 /* 回车使用的默认引擎（默认引擎不在按钮列表里时不会出现） */
@@ -236,35 +212,66 @@ img {
     -webkit-user-drag: none;
 }
 
-.site img {
+/* ---------- 图标底板（站点图标与搜索按钮共用） ---------- */
+
+:where(.site, .search-button) img {
     display: block;
-    width: var(--tile);
-    height: var(--tile);
-    border: 1px solid var(--tile-ring);
     border-radius: 50%;
     background-color: var(--tile-bg);
+    /* 用 outline 画 1px 细边：不占布局，悬停只改颜色，不会像 border-width 那样触发重排 */
+    outline: 1px solid var(--tile-ring);
+    outline-offset: -1px;
+    /* 阴影的偏移与模糊按图标尺寸取比例：大图标大光晕，小图标小光晕 */
+    --icon-shadow: 0 calc(var(--icon-size) * 0.135)
+        calc(var(--icon-size) * 0.325) var(--icon-glow);
     transition: width 0.32s var(--ease), height 0.32s var(--ease),
         transform 0.18s var(--ease), box-shadow 0.18s var(--ease),
-        border-color 0.18s var(--ease);
+        outline-color 0.18s var(--ease);
 }
 
-/* 悬停抬升只对真正支持悬停的设备生效，避免触屏点击后阴影驻留 */
+/* 只有尺寸不同 */
+.site img {
+    --icon-size: var(--tile);
+    width: var(--tile);
+    height: var(--tile);
+}
+
+/* 悬停：细边收掉，阴影取图标主色（仅支持悬停的设备，避免触屏点击后阴影驻留） */
 @media (hover: hover) and (pointer: fine) {
+    .site:hover img,
+    .search-button:hover img {
+        outline-color: transparent;
+        /* 阴影颜色来自图标主色，由 tools/gen_icon_glow.py 生成 */
+        box-shadow: var(--icon-shadow);
+    }
+
     .site:hover img {
         transform: translateY(-4px) scale(1.04);
-        border-color: transparent;
-        box-shadow: var(--shadow);
     }
+
+    .search-button:hover img {
+        transform: translateY(-2px) scale(1.02);
+    }
+}
+
+.search-button:active img {
+    transform: translateY(-1px) scale(0.99);
 }
 
 /* 键盘聚焦：鼠标点击不会命中 :focus-visible，松手后阴影不会粘住 */
 .site:focus-visible img,
 .site-link:focus-visible img {
     transform: translateY(-4px) scale(1.04);
-    border-color: transparent;
-    box-shadow: var(--shadow);
     outline: 2px solid var(--focus-line);
     outline-offset: 3px;
+    box-shadow: var(--icon-shadow);
+}
+
+.search-button:focus-visible img {
+    transform: translateY(-2px) scale(1.02);
+    outline: 2px solid var(--focus-line);
+    outline-offset: 3px;
+    box-shadow: var(--icon-shadow);
 }
 
 .site:focus-visible,
@@ -307,16 +314,19 @@ img {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     opacity: 0;
-    visibility: hidden;
-    transform: translate(-50%, -4px);
-    transition: opacity 0.16s ease, transform 0.16s var(--ease), visibility 0.16s;
+    /* 隐藏时只保留顶部 10px 窄带可命中：悬停在图标上不会弹出，
+       鼠标往下移动进入菜单区域时才展开；窄带只占图标的底部留白，不挡下面的图标 */
+    clip-path: inset(0 0 calc(100% - 10px) 0);
+    transform: translate(-50%, 0);
+    /* 只过渡透明度：若同时移动位置，指针可能因为元素位移离开悬停区，
+       导致 hover 反复命中/丢失而闪烁 */
+    transition: opacity 0.16s ease;
 }
 
-.site--dropdown:hover .dropdown-menu,
+.dropdown-menu:hover,
 .site--dropdown:focus-within .dropdown-menu {
     opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, 0);
+    clip-path: none;
 }
 
 .dropdown-menu a {
@@ -384,11 +394,15 @@ img {
     .search {
         flex-direction: column;
         align-items: stretch;
+        /* 输入框与按钮组上下排布时，留出比横排更大的间距 */
+        gap: calc(var(--search-h) * 0.6);
         width: min(440px, 100%);
     }
     .button-container {
         justify-content: center;
         flex-wrap: wrap;
+        /* 按钮换行时行距也放大一些 */
+        row-gap: calc(var(--search-h) * 0.5);
         animation: fold-down 0.24s var(--ease);
     }
 }

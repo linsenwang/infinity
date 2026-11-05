@@ -10,6 +10,7 @@
     <title>New Tab</title>
     <link rel="icon" type="image/png" href="web_icon/yanan.png">
     <link rel="stylesheet" href="css/infinity.css">
+    <link rel="stylesheet" href="css/icon-glow.css">
     <!-- defer 保证按顺序执行：config -> search -> main -->
     <script src="js/config.js" defer></script>
     <script src="js/search.js" defer></script>
@@ -19,11 +20,6 @@
 <main class="page">
     <section class="search" id="searchWrapper" aria-label="搜索">
         <div class="search-field">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                <circle cx="11" cy="11" r="7"></circle>
-                <path d="m20 20-3.5-3.5"></path>
-            </svg>
             <input type="text" id="searchInput" autocomplete="off" autocapitalize="off"
                    spellcheck="false" enterkeyhint="search" aria-label="搜索">
         </div>
