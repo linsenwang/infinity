@@ -1,3 +1,7 @@
 else/
 .DS_Store
 ori_icon/
+web_icon/lab/
+__pycache__/
+web_icon copy/
+web_icon_backup_pre_fit_*/

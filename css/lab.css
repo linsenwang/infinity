@@ -1,0 +1,156 @@
+/* 图标标定页（index-lab.html）：图标右侧的 +/− 和整体 fill / plate 面板 */
+
+.lab-ctl {
+    position: absolute;
+    top: 50%;
+    left: calc(50% + var(--tile) * 0.5 + 3px);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    transform: translateY(-50%);
+}
+
+.lab-ctl button {
+    width: 22px;
+    height: 19px;
+    padding: 0;
+    font: 12px/1 -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--fg);
+    background: var(--surface-hover);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.lab-ctl button:hover { background: var(--line); }
+
+.lab-ctl button:active { transform: scale(0.95); }
+
+.lab-ctl span {
+    font: 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.lab-bar {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--fg);
+    background: var(--menu-bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
+}
+
+.lab-bar .lab-note { color: var(--muted); }
+
+.lab-bar button {
+    padding: 5px 10px;
+    font: inherit;
+    color: var(--fg);
+    background: var(--surface-hover);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.lab-bar button:hover { background: var(--line); }
+
+.lab-bar #labCopy {
+    color: #fff;
+    background: var(--accent);
+    border-color: transparent;
+}
+
+.lab-bar #labCopy:hover { filter: brightness(1.06); }
+
+.lab-fill {
+    position: fixed;
+    left: 18px;
+    bottom: 18px;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px 10px;
+    font-size: 12px;
+    color: var(--fg);
+    background: var(--menu-bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
+}
+
+.lab-fill-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.lab-fill-name {
+    width: 32px;
+    font: 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--muted);
+    text-align: right;
+}
+
+.lab-fill-val {
+    width: 34px;
+    font: 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+.lab-fill button {
+    width: 22px;
+    height: 19px;
+    padding: 0;
+    font: 12px/1 -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--fg);
+    background: var(--surface-hover);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.lab-fill button:hover { background: var(--line); }
+
+.lab-fill button:active { transform: scale(0.95); }
+
+.lab-fill-hint {
+    font-size: 10px;
+    color: var(--muted);
+}
+
+.lab-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 86px;
+    z-index: 61;
+    padding: 8px 14px;
+    font-size: 12px;
+    color: var(--bg);
+    background: var(--fg);
+    border-radius: 999px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+
+.lab-toast.show { opacity: 1; }
+
+@media (max-width: 900px) {
+    .lab-ctl { display: none; }
+}

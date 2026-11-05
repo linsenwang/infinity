@@ -1,0 +1,33 @@
+# infinity icon calibration  fill=0.683  plate=0.652  size=140
+# scale = 源图（底板取标志层）的缩放倍数
+# name	kind	visual	auto	scale	site
+icon-1hd7omdhk7jtseuf59tf7wsyg42.webp	logo	0.460	0.683	0.162	厦大 WebVPN
+icon-1hpfelfrcnyroixwxq48hgnub1r.webp	plate	0.430	0.652	0.187	微信文件传输
+icon-1h9qu2pjo4erf7nyvrdhiut0t3p.webp	plate	0.430	0.652	0.191	豆瓣
+folo.webp	plate	0.470	0.652	0.398	Folo
+icon-1hl5qad3kczi5brf8uvi0hc4ksz.webp	plate	0.440	0.652	0.197	GitHub
+icon-1hlc4f9jvw4o6hygspujmccxxp6.webp	plate	0.440	0.652	0.182	巨潮资讯
+6031.webp	plate	0.450	0.652	0.269	MIT 6.031
+icon-1hh209s0uy51j5sylir3t6kfyzu.webp	logo	0.470	0.683	0.167	JavaScript.info
+icon-1hdg3tmcf1kcd5z5m7zspweafpf.webp	logo	0.440	0.683	0.139	厦大图书馆
+icon-1hmp4ecnvaeh5sqtmolvvtyq33r.webp	logo	0.450	0.683	0.142	Z-Library
+gas.webp	logo	0.430	0.683	0.086	Google AI Studio
+gsh.webp	logo	0.420	0.683	0.185	Google 学术
+icon-1h9mr17hh5z9htrlydh42gtp432.webp	logo	0.430	0.683	0.161	国家哲社文献中心
+icon-1hdd1k6t4jpjvalpsyr1lhsq4wb.webp	logo	0.430	0.683	0.166	厦大课程平台
+icon-1hg71u1fr4akszd6kxkgpqagyfr.webp	logo	0.430	0.683	0.183	石墨文档
+icon-1h9l2pa65scf4d92g1xzs0x7t8i.webp	logo	0.450	0.683	0.140	Anna's Archive
+txtr.webp	logo	0.430	0.683	0.456	txtReader
+x.webp	logo	0.430	0.683	0.231	
+openrouter.webp	logo	0.430	0.683	0.185	OpenRouter
+icon-1hgabp1ota45767tg52ce68ei6h.webp	logo	0.480	0.683	0.177	CEIC 数据库
+CS285.webp	logo	0.530	0.683	0.169	CS285
+icon-1hnfh7j3t9qgpnmow26fgghthj2.webp	logo	0.430	0.683	0.140	IMF Data
+icon-1hnmr0epf6gngm47fnqm9c8yon2.webp	logo	0.500	0.683	0.203	Kaggle
+trans.webp	logo	0.430	0.683	0.083	Google 翻译
+cyweather.webp	logo	0.430	0.683	0.098	彩云天气
+gfont.webp	logo	0.430	0.683	0.313	Google Fonts
+zaobao.webp	logo	0.430	0.683	0.057	联合早报
+openwebui.webp	logo	0.430	0.683	0.101	Open WebUI
+openai.webp	logo	0.430	0.683	0.410	ChatGPT
+mui.webp	logo	0.530	0.683	0.188	MUI
