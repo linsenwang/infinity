@@ -12,7 +12,8 @@ r"""按等效圆直径做图标的光学归一化。
   * 等面积   按凸包面积折算等效圆直径；再按形状做两项光学修正：
              实心的长条、斜块视觉上比等面积圆更大，按外缘收敛；越接近圆的
              徽章尖角越少，越可以放大——按凸包圆形度 c 连续过渡到 COMPACT_MAX，
-             四周留一圈，没有档位和阈值。字标圆形度低，基本保持原宽度。
+             四周留一圈，没有档位和阈值。包络用凸包面积平均直径定义；外接框
+             宽度会随凸包密度不同而不同，字标圆形度低，基本保持原宽度。
   * 位置     小偏移时按源图画布中心摆放，保留设计稿的光学位置（字标往往不是
              几何居中）；偏移超过短边 2% 就当作裁切失误，连续过渡到外接框中心。
   * 安全区   外缘顶到圆边时收在圆内；边距随圆形度连续变化。
@@ -237,6 +238,19 @@ def optical_diameter(info, fill):
     return info['d_eq'] * penalty / boost
 
 
+def layout_scale(info, fill, size):
+    """按凸包等效直径（面积平均）换算缩放比例，再受圆边安全区限制。
+
+    包络由 d_eq 定义，也就是凸包点的均方根半径 ×2；外接框宽度会随凸包
+    密度不同而不同（同样字面框的「豆」和「淘」外框不会强求一致）。
+    """
+    d_opt = optical_diameter(info, fill)
+    scale = fill * size / d_opt
+    cap = (size / 2.0) * (1 - EDGE_MARGIN * (1 - info['circularity']))
+    fit_scale = cap / info['reach'] if info['reach'] > 0 else scale
+    return min(scale, fit_scale), fit_scale < scale
+
+
 def plate_bounds(rgba):
     """彩色底板的外接框：去掉源图边缘的白边/白脚，保留框内全部像素。"""
     arr = np.asarray(rgba).astype(np.float32)
@@ -323,10 +337,7 @@ def fit(source_path, output_path, diameter, size, quality):
             print(f'  -> {output_path}  {size}x{size} {after / 1024:.1f}KB'
                   f'  底板铺满 · 未检测到标志，保持源图')
             return 1.0, False
-        scale = diameter * size / optical_diameter(info, diameter)
-        cap = (size / 2.0) * (1 - EDGE_MARGIN * (1 - info['circularity']))
-        if info['reach'] > 0:
-            scale = min(scale, cap / info['reach'])
+        scale, _ = layout_scale(info, diameter, size)
         new_w = max(1, round(mark.width * scale))
         new_h = max(1, round(mark.height * scale))
         icon = mark.resize((new_w, new_h), Image.LANCZOS)
@@ -353,16 +364,9 @@ def fit(source_path, output_path, diameter, size, quality):
     radius = size / 2.0
     circle_area = math.pi * radius ** 2
 
-    # 光学等效直径：等面积 + 外缘/实心度修正 + 圆形度放大
+    # 光学尺寸：等面积 + 外缘/实心度修正，紧凑标记再向外接框目标混合
     d_opt = optical_diameter(info, diameter)
-    scale = diameter * size / d_opt
-
-    # 圆边安全区（按画布中心摆放，外缘也相对画布中心算）。
-    # 越接近圆的徽章，外缘越没有尖角，安全边距也连续收到 0。
-    cap = radius * (1 - EDGE_MARGIN * (1 - info['circularity']))
-    fit_scale = cap / info['reach'] if info['reach'] > 0 else scale
-    clamped = fit_scale < scale
-    scale = min(scale, fit_scale)
+    scale, clamped = layout_scale(info, diameter, size)
 
     new_w = max(1, round(source.width * scale))
     new_h = max(1, round(source.height * scale))
