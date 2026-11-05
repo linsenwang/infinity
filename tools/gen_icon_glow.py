@@ -12,12 +12,16 @@
 - 主色取占比最高的鲜艳色，图标本身是黑白时取占比最高的深色；
 - 再用整幅图的平均色按图标饱和度混合：主色越鲜艳越保留本色，
   越接近黑白越偏向平均色——所以白底黑 Logo 的图标（ChatGPT、CS285 等）
-  得到的是浅灰阴影，深色瓷砖图标（GitHub、6.031）保持深色。
+  得到的是浅灰阴影，深色瓷砖图标（GitHub、6.031）保持深色；
+- 混合出的颜色如果太浅（如 txtr、goodreads、gsh 这类浅色图标），
+  在白色页面上几乎看不出阴影，因此用一条连续曲线按亮度压暗，保持色相不变；
+  饱和度越高压得越少，cyweather、gfont 这类鲜艳的浅色保持本色。
 
 深色模式下图标会被 CSS 反色（invert(88%) hue-rotate(180deg)），
 所以深色阴影用同一段滤镜链把颜色换算成屏幕上实际显示的颜色。
 """
 
+import math
 import re
 import colorsys
 from collections import Counter
@@ -33,9 +37,42 @@ ALPHA = 0.45
 INVERT = 0.88
 WHITE = (255, 255, 255)
 
+# 浅色阴影在白色页面上太淡，用 softmin 把亮度连续压向 GLOW_CAP；
+# GLOW_SOFTNESS 越大，压暗从越暗的颜色开始生效、过渡越平缓。
+# 饱和度越高压暗得越少：灰白图标全量压暗，鲜艳图标保持原色
+GLOW_CAP = 150
+GLOW_SOFTNESS = 14
+PALE_SATURATION = 0.15
+VIVID_SATURATION = 0.5
+
 
 def clamp(value):
     return max(0, min(255, round(value)))
+
+
+def luma(color):
+    return 0.2126 * color[0] + 0.7152 * color[1] + 0.0722 * color[2]
+
+
+def deepen_pale(color):
+    """压低浅色的亮度，饱和度越高压得越少，色相保持不变。
+
+    亮度先用 softmin 连续压向 GLOW_CAP：深色几乎不变，浅色逐渐贴到上限，
+    中间平滑过渡；再按饱和度加权——饱和度不超过 PALE_SATURATION 时全量
+    压暗，达到 VIVID_SATURATION 后完全保留原色，所以鲜艳的浅色不会被压灰。
+    """
+    value = luma(color)
+    if value <= 0:
+        return color
+    target = -GLOW_SOFTNESS * math.log(
+        math.exp(-value / GLOW_SOFTNESS) + math.exp(-GLOW_CAP / GLOW_SOFTNESS)
+    )
+    saturation = colorsys.rgb_to_hsv(*(channel / 255 for channel in color))[1]
+    t = (saturation - PALE_SATURATION) / (VIVID_SATURATION - PALE_SATURATION)
+    t = max(0.0, min(1.0, t))
+    pale = 1 - t * t * (3 - 2 * t)
+    scale = (value + (target - value) * pale) / value
+    return tuple(clamp(channel * scale) for channel in color)
 
 
 def is_near_white(color):
@@ -43,7 +80,7 @@ def is_near_white(color):
 
 
 def analyze_icon(path, background):
-    """返回图标在给定底色上的阴影颜色（0-255 的 RGB）。"""
+    """返回图标在给定底色上混合出的颜色（0-255 的 RGB，未按亮度压暗）。"""
     image = Image.open(path).convert('RGBA')
     image.thumbnail((96, 96))
 
@@ -183,6 +220,7 @@ def build_css(icons):
         color = analyze_icon(path, info['tile_bg'] or WHITE)
         if is_near_white(color):
             continue
+        color = deepen_pale(color)
 
         light_rules.append(make_rule(src, info, color))
         dark_rules.append(make_rule(src, info, dark_variant(color)))
